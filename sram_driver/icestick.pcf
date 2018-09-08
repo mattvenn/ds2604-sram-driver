@@ -1,0 +1,19 @@
+set_io LED 95 # centre green
+set_io clk 21
+
+#  44   - -  45
+#  62  |   | 47
+#  119  - -  118
+#  61  |   | 48
+#  60   - -  56
+#      
+        
+set_io sram_data_pins[7] 47
+set_io sram_data_pins[6] 48
+set_io sram_data_pins[5] 56
+set_io sram_data_pins[4] 60
+set_io sram_data_pins[3] 61
+set_io sram_data_pins[2] 62
+set_io sram_data_pins[1] 119
+set_io sram_data_pins[0] 118
+
