@@ -1,0 +1,39 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Sep  8 18:38:29 2018
+[*]
+[dumpfile] "/home/mattvenn/work/pinball/fpga/ds2064/test.vcd"
+[dumpfile_mtime] "Sat Sep  8 18:38:07 2018"
+[dumpfile_size] 3729
+[savefile] "/home/mattvenn/work/pinball/fpga/ds2064/gtk-ds2064.gtkw"
+[timestart] 121170
+[size] 1440 848
+[pos] 0 61
+*-11.000000 130240 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 263
+[signals_width] 242
+[sst_expanded] 1
+[sst_vpaned_height] 242
+@28
+test.clk
+@22
+test.address[12:0]
+test.data[7:0]
+@28
+test.ce2
+test.n_ce1
+test.n_oe
+test.n_we
+@200
+-
+@22
+test.ds2064_inst.address[12:0]
+test.ds2064_inst.data[7:0]
+@28
+test.ds2064_inst.n_ce1
+test.ds2064_inst.ce2
+test.ds2064_inst.n_oe
+test.ds2064_inst.n_we
+[pattern_trace] 1
+[pattern_trace] 0

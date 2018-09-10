@@ -811,21 +811,21 @@ Text Label 4250 2750 2    60   ~ 0
 a2_33
 Text Label 4250 2650 2    60   ~ 0
 a3_33
-Text Label 8250 5400 0    60   ~ 0
-a14_33
 Text Label 8250 5200 0    60   ~ 0
+a14_33
+Text Label 8250 5400 0    60   ~ 0
 a12_33
 Text Label 8250 5500 0    60   ~ 0
 a7_33
-Text Label 7750 5500 2    60   ~ 0
+Text Label 8250 5600 0    60   ~ 0
 a6_33
-Text Label 7750 5400 2    60   ~ 0
+Text Label 7750 5500 2    60   ~ 0
 a5_33
-Text Label 7750 5200 2    60   ~ 0
+Text Label 7750 5400 2    60   ~ 0
 a4_33
-Text Label 8250 5100 0    60   ~ 0
-a2_33
 Text Label 7750 5100 2    60   ~ 0
+a2_33
+Text Label 7750 5200 2    60   ~ 0
 a3_33
 Text Label 8450 2200 2    60   ~ 0
 d2_33
@@ -977,4 +977,30 @@ F 3 "" H 5800 4200 50  0001 C CNN
 $EndComp
 Text Notes 7050 5800 0    60   ~ 0
 is this 3.3v?
+$Comp
+L Test_Point TP2
+U 1 1 5B924B57
+P 6000 4200
+F 0 "TP2" H 6058 4320 50  0000 L CNN
+F 1 "Test_Point" H 6058 4229 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D0.7mm_L6.5mm_W1.8mm_FlatFork" H 6200 4200 50  0001 C CNN
+F 3 "~" H 6200 4200 50  0001 C CNN
+	1    6000 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Test_Point TP1
+U 1 1 5B924C2F
+P 5600 4200
+F 0 "TP1" H 5658 4320 50  0000 L CNN
+F 1 "Test_Point" H 5658 4229 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D0.7mm_L6.5mm_W1.8mm_FlatFork" H 5800 4200 50  0001 C CNN
+F 3 "~" H 5800 4200 50  0001 C CNN
+	1    5600 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5600 4200 5500 4200
+Wire Wire Line
+	6000 4200 5800 4200
 $EndSCHEMATC

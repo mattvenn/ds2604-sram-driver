@@ -1,0 +1,76 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Sep  8 18:20:13 2018
+[*]
+[dumpfile] "/home/mattvenn/work/pinball/fpga/sram_driver/test.vcd"
+[dumpfile_mtime] "Sat Sep  8 18:20:04 2018"
+[dumpfile_size] 7509
+[savefile] "/home/mattvenn/work/pinball/fpga/sram_driver/gtk-sram_driver.gtkw"
+[timestart] 16600
+[size] 1198 778
+[pos] 155 22
+*-16.824837 248622 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[treeopen] test.sram_driver_0.
+[sst_width] 263
+[signals_width] 289
+[sst_expanded] 1
+[sst_vpaned_height] 213
+@28
+test.clk
+test.reset
+@c00022
+test.sram_driver_0.address[12:0]
+@28
+(0)test.sram_driver_0.address[12:0]
+(1)test.sram_driver_0.address[12:0]
+(2)test.sram_driver_0.address[12:0]
+(3)test.sram_driver_0.address[12:0]
+(4)test.sram_driver_0.address[12:0]
+(5)test.sram_driver_0.address[12:0]
+(6)test.sram_driver_0.address[12:0]
+(7)test.sram_driver_0.address[12:0]
+(8)test.sram_driver_0.address[12:0]
+(9)test.sram_driver_0.address[12:0]
+(10)test.sram_driver_0.address[12:0]
+(11)test.sram_driver_0.address[12:0]
+(12)test.sram_driver_0.address[12:0]
+@1401200
+-group_end
+@22
+test.data_in[7:0]
+test.sram_data[7:0]
+@200
+-
+@22
+test.sram_driver_0.state[3:0]
+@24
+test.sram_driver_0.counter[5:0]
+@28
+test.sram_driver_0.ready
+test.sram_driver_0.re
+test.sram_driver_0.start
+test.sram_driver_0.ce
+@29
+test.sram_driver_0.we
+@22
+test.sram_driver_0.sram_address[12:0]
+@28
+test.sram_driver_0.sram_data_pins_oe
+@22
+test.sram_driver_0.data_out[7:0]
+test.sram_driver_0.sram_data_read[7:0]
+test.sram_driver_0.sram_data_write[7:0]
+@200
+-
+@22
+test.ds2064_inst.address[12:0]
+@28
+test.ds2064_inst.ce2
+test.ds2064_inst.n_ce1
+test.ds2064_inst.n_oe
+test.ds2064_inst.n_we
+@22
+test.ds2064_inst.data[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

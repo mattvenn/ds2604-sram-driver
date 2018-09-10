@@ -595,7 +595,7 @@ t/~r_trans
 Text Label 6350 1900 2    60   ~ 0
 t/~r_trans
 Text Label 8450 1900 2    60   ~ 0
-t/~r_trans
+t/~r_trans_data
 $Comp
 L GND #PWR014
 U 1 1 5B917D6D
@@ -1003,4 +1003,6 @@ Wire Wire Line
 	5600 4200 5500 4200
 Wire Wire Line
 	6000 4200 5800 4200
+Text Label 8250 5100 0    60   ~ 0
+t/~r_trans_data
 $EndSCHEMATC
