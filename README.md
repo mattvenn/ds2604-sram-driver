@@ -4,6 +4,8 @@
 
 ## plan
 
+![ram32](ram32.png)
+
 * the ds2064 is socketed, so make a [breakout board](ram-fpga) that passes through the connections. 
 * add an FPGA that can listen to the 13 address lines, the 8 data lines and the 3 read/write/select pins = 24pins.
 * when in write mode, with address in the high score range the FPGA reads the data off the bus.
