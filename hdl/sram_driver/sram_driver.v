@@ -15,8 +15,8 @@ module sram_driver (
     input wire             start,               // start a transaction
     output reg             ready,               // assert high when ready for a new transaction
     input  wire [12:0]     address,             // input address
-    input  wire [7:0]      data_in,             // data to write here
-    output reg [7:0]       data_out,            // data read is here
+    input  wire [7:0]      data_write,             // data to write here
+    output reg [7:0]       data_read,            // data read is here
 
     // memory control
     output reg [12:0]      sram_address,        // sram address
@@ -57,7 +57,7 @@ module sram_driver (
         if(reset) begin
             state <= STATE_WAIT;
             ready <= 0;
-            data_out <= 0;
+            data_read <= 0;
             sram_address <= 0;
             sram_data_pins_oe <= 0;
             ce <= 0;
@@ -85,7 +85,7 @@ module sram_driver (
                     end else begin
                         sram_data_pins_oe <= 1;
                         state <= STATE_WRITE;
-                        sram_data_write <= data_in;
+                        sram_data_write <= data_write;
                         
                         ce <= 1;
                         oe <= 0;
@@ -99,7 +99,7 @@ module sram_driver (
                 if(counter == 0) begin
                     ce <= 0;
                     ready <= 1;
-                    data_out <= sram_data_read;
+                    data_read <= sram_data_read;
                     state <= STATE_WAIT;
                 end
             end

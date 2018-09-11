@@ -3,7 +3,7 @@ PIN_DEF = 8k.pcf
 DEVICE = hx8k
 PACKAGE = ct256
 
-SRC = top.v sram_driver.v
+SRC = top.v sram_driver.v ../serial/uart_rx.v ../serial/uart_tx.v ../serial/baudgen.v ../serial/baudgen_rx.v
 
 all: $(PROJ).bin
 #all: $(PROJ).rpt $(PROJ).bin
@@ -26,7 +26,7 @@ debug:
 	gtkwave test.vcd gtk-sram_driver.gtkw
 
 debug-top:
-	iverilog -DDEBUG -o top sram_driver.v top.v top_tb.v ../ds2064/ds2064.v
+	iverilog -DDEBUG -o top sram_driver.v top.v top_tb.v
 	vvp top -fst
 	gtkwave test.vcd gtk-top.gtkw
 

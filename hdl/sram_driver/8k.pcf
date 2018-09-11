@@ -19,7 +19,7 @@ set_io --warn-no-port LED[7] C3
 
 
 ### UART (FTDI Channel B)
-set_io --warn-no-port RS232_RX_i B10
+set_io --warn-no-port rx B10
 set_io --warn-no-port tx B12
 set_io --warn-no-port RTSn       B13
 set_io --warn-no-port CTSn       A15
@@ -84,3 +84,75 @@ set_io --warn-no-port PMOD2-35 R2
 set_io --warn-no-port PMOD2-36 T3
 set_io --warn-no-port PMOD2-37 T1
 set_io --warn-no-port PMOD2-38 T2
+
+# ----------------------------- BANK-1 --------------------------------------------------------
+
+
+# ------------------------ PMOD1 connector (J2)------------------------------------------------
+#
+#
+#                     ************************************
+#                     *                                  *
+# --------------------*-INSTALADO DE FABRICA EN LA PLACA *------------------------------------- 
+#                     *                                  *
+#                     ************************************
+#
+#
+#
+#				 J2
+#			       --------
+#			 1---| 1V2 VCC |---2	VCCIO1_01
+#     			 3---| 1V2 R15 |---4
+#			 5---| P16 P15 |---6
+#			 7---| GND GND |---8
+#			 9---| N16 M15 |---10
+#			     --------
+#			11---| M16 L16 |---12
+#			13---| K15 K16 |---14
+#			15---| GND GND |---16
+#			17---| K14 J14 |---18
+#			19---| G14 F14 |---20
+#			      --------
+#			21---| J15 H14 |---22
+#			23---| GND GND |---24
+#		GBIN2	25---| H16 G15 |---26
+#			27---| G16 F15 |---28
+#			29---| F16 E14 |---30
+#			      --------
+#			31---| GND GND |---32
+#			33---| E16 D15 |---34
+#			35---| D16 D14 |---36
+#			37---| C16 B16 |---38
+#			39---| GND GND |---40
+#			      ---------
+
+
+set_io --warn-no-port PMOD14 R15
+set_io --warn-no-port PMOD15 P16
+set_io --warn-no-port PMOD16 P15
+set_io --warn-no-port PMOD19 N16
+set_io --warn-no-port PMOD110 M15
+set_io --warn-no-port PMOD111 M16
+set_io --warn-no-port PMOD112 L16
+set_io --warn-no-port PMOD113 K15
+set_io --warn-no-port PMOD114 K16
+set_io --warn-no-port PMOD117 K14
+set_io --warn-no-port PMOD118 J14
+set_io --warn-no-port PMOD119 G14
+set_io --warn-no-port PMOD120 F14
+set_io --warn-no-port PMOD121 J15
+set_io --warn-no-port PMOD122 H14
+set_io --warn-no-port PMOD125 H16
+set_io --warn-no-port PMOD126 G15
+set_io --warn-no-port PMOD127 G16
+set_io --warn-no-port PMOD128 F15
+set_io --warn-no-port PMOD129 F16
+set_io --warn-no-port PMOD130 E14
+set_io --warn-no-port PMOD133 E16
+set_io --warn-no-port PMOD134 D15
+set_io --warn-no-port PMOD135 D14
+set_io --warn-no-port PMOD136 D16
+set_io --warn-no-port PMOD137 C16
+set_io --warn-no-port PMOD138 B16
+
+
