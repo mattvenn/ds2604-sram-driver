@@ -44,7 +44,9 @@ module sram_driver (
 
     // state machine setup
     reg [3:0] state = STATE_WAIT;
-    reg [5:0] counter = 0;
+
+    localparam N = $clog2(WAIT_TIME);
+    reg [N-1:0] counter = 0;
 
     localparam STATE_WAIT = 0;
     localparam STATE_READ = 1;
