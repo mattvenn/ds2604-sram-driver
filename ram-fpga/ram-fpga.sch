@@ -223,8 +223,12 @@ U 1 1 5B916095
 P 8050 4700
 F 0 "J1" H 8100 3475 50  0000 C CNN
 F 1 "Conn_02x20_Odd_Even" H 8100 3566 50  0000 C CNN
-F 2 "Connector_IDC:IDC-Header_2x20_P2.54mm_Vertical" H 8050 4700 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical_SMD" H 8050 4700 50  0001 C CNN
 F 3 "~" H 8050 4700 50  0001 C CNN
+F 4 "Value" H 8050 4700 60  0001 C CNN "supplier"
+F 5 "Value" H 8050 4700 60  0001 C CNN "supplier PN"
+F 6 "Value" H 8050 4700 60  0001 C CNN "MOQ"
+F 7 "Value" H 8050 4700 60  0001 C CNN "leadtime"
 	1    8050 4700
 	-1   0    0    1   
 $EndComp
@@ -975,8 +979,6 @@ F 3 "" H 5800 4200 50  0001 C CNN
 	1    5800 4200
 	-1   0    0    1   
 $EndComp
-Text Notes 7050 5800 0    60   ~ 0
-is this 3.3v?
 $Comp
 L Test_Point TP2
 U 1 1 5B924B57
@@ -1005,4 +1007,8 @@ Wire Wire Line
 	6000 4200 5800 4200
 Text Label 8250 5100 0    60   ~ 0
 t/~r_trans_data
+Text Notes 6400 5900 0    60   ~ 0
+solder female header to bottom of fpga board so the 3.3v is in the right place
+Text Notes 7350 6000 0    60   ~ 0
+farnell part 2847248
 $EndSCHEMATC
