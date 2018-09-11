@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Tue Sep 11 15:56:09 2018
+[*]
+[dumpfile] "/home/matt/work/pinball/sram_driver/test.vcd"
+[dumpfile_mtime] "Tue Sep 11 15:55:24 2018"
+[dumpfile_size] 103991
+[savefile] "/home/matt/work/pinball/sram_driver/gtk-top.gtkw"
+[timestart] 0
+[size] 1933 600
+[pos] -1 -1
+*-25.000000 63401040 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 253
+[signals_width] 497
+[sst_expanded] 1
+[sst_vpaned_height] 158
+@28
+test.clk
+test.top_inst.reset
+test.top_inst.state[2:0]
+@22
+test.top_inst.sram_address[13:0]
+test.top_inst.address[12:0]
+@23
+test.top_inst.LED[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
