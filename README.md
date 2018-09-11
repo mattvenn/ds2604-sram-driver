@@ -9,7 +9,7 @@
 * the ds2064 is socketed, so make a [breakout board](ram-fpga) that passes through the connections. 
 * add an FPGA that can listen to the 13 address lines, the 8 data lines and the 3 read/write/select pins = 24pins.
 * when in write mode, with address in the high score range the FPGA reads the data off the bus.
-* write [ds2064 driver](sram_driver/README.md)
+* write [ds2064 driver](hdl/sram_driver/README.md)
 
 # Resources
 
@@ -28,9 +28,9 @@ The CPU board contains the main processor: a Motorola 68B09E, running at 2Mhz. I
 fairly sure this is the main board on my doctor who pinball.
 [good overview here](http://level42.ca/files/PinRepair/System%20WPC/WPC%20part1/index1.htm)
 
-It uses a battery backed up [ds2064](ds2064.pdf) to store audits and score I hope.
+It uses a battery backed up [ds2064](docs/ds2064.pdf) to store audits and score I hope.
 
-[Schematic](wpc89.pdf)
+[Schematic](docs/wpc89.pdf)
 
 # Available machines to try
 
