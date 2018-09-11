@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Thu Jul 26 09:41:03 2018
+[*]
+[dumpfile] "/home/matt/work/fpga/hyperram/test.vcd"
+[dumpfile_mtime] "Thu Jul 26 09:40:51 2018"
+[dumpfile_size] 1628
+[savefile] "/home/matt/work/fpga/hyperram/gtk-serial.gtkw"
+[timestart] 0
+[size] 1722 940
+[pos] 926 252
+*-7.000000 463 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[treeopen] test.TX0.
+[sst_width] 253
+[signals_width] 325
+[sst_expanded] 1
+[sst_vpaned_height] 279
+@28
+test.clk
+test.reset
+test.rcv
+@22
+test.rxdata[7:0]
+test.rx_byte_cnt[2:0]
+test.rx_reg[39:0]
+test.txdata[7:0]
+test.wr_d[31:0]
+test.addr[31:0]
+test.cmd_byte[7:0]
+test.tx_reg[31:0]
+test.data_bytes[31:0]
+@28
+test.start
+@22
+test.txdata[7:0]
+test.tx_bytes[2:0]
+@28
+test.tx_strb
+test.TX0.ready
+@29
+test.ready_shift[3:0]
+@28
+test.TX0.clk
+@22
+test.TX0.data[7:0]
+@28
+test.TX0.load
+test.TX0.start
+test.TX0.start_r
+test.TX0.tx
+test.TX0.BAUD0.clk_out
+test.TX0.BAUD0.clk_ena
+test.TX0.state[1:0]
+[pattern_trace] 1
+[pattern_trace] 0
