@@ -11,6 +11,21 @@
 * when in write mode, with address in the high score range the FPGA reads the data off the bus.
 * write [ds2064 driver](hdl/sram_driver/README.md)
 
+## board test
+
+* data pins tx - ok
+* data pins rx - ok - very high impedance!
+* addr pins tx - ok
+* addr pins rx - ok
+* ctrl pins rx - ok
+* ctrl pins tx - ok
+* on programming fpga, 5v line draws up to 40mA
+
+## functional test
+
+* read and write work separately with python control
+* however, a write followed by a read works with ram non connected!
+
 # Resources
 
 http://www.pinballsupernova.com/Williams%20Repair%20Guide/Williams%201990-1999%20WPC.pdf
