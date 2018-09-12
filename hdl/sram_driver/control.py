@@ -32,7 +32,7 @@ def cmd(cmd, data=0):
 #    print(cmd, data )
     return data
 
-write = True
+write = False
 read = True
 tests = 0
 try:
@@ -43,14 +43,17 @@ try:
             if tests % 100 == 0:
                 print(tests, i)
 
+            #number = i % 255 #random.randint(0,255)
             number = random.randint(0,255)
             data = cmd('ADDR', i)
             if write:
                 cmd('LOAD', number)
                 cmd('WRITE')
+                print(i, number)
             if read:
                 cmd('READ_REQ')
                 read_data = cmd('READ')
+                print(i, read_data)
 
             if read and write:
                 if(read_data == number):
