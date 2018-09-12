@@ -62,13 +62,13 @@ set_io --warn-no-port addr[12] T13
 set_io --warn-no-port addr[4]  T14
 set_io --warn-no-port addr[14] N12
 set_io --warn-no-port addr[3]  P13
-set_io --warn-no-port t_r_data N10 # transceiver tx !rx data
+set_io --warn-no-port trans_tx_data N10 # transceiver tx !rx data
 set_io --warn-no-port addr[2]  M11
-set_io --warn-no-port t_r_addr T11 # transceiver tx !rx address and ctrl
+set_io --warn-no-port trans_tx_addr T11 # transceiver tx !rx address and ctrl
 set_io --warn-no-port addr[1]  P10
-set_io --warn-no-port n_oe_trans T10 # !oe all tranceivers
+set_io --warn-no-port trans_n_oe T10 # !oe all tranceivers
 set_io --warn-no-port addr[0]  R10
-set_io --warn-no-port n_write  P8  # sram n_write pin
+set_io --warn-no-port sram_n_write  P8  # sram n_write pin
 set_io --warn-no-port data[3]  P9
 set_io --warn-no-port addr[13] T9
 set_io --warn-no-port data[4]  R9
@@ -78,11 +78,11 @@ set_io --warn-no-port addr[9]  T6
 set_io --warn-no-port data[6]  R6
 set_io --warn-no-port addr[11] T5
 set_io --warn-no-port data[7]  R5
-set_io --warn-no-port n_oe     R3 # eeprom !oe
+set_io --warn-no-port sram_n_oe     R3 # eeprom !oe
 set_io --warn-no-port data[2]  R4
 set_io --warn-no-port addr[10] R2
 set_io --warn-no-port data[1]  T3
-set_io --warn-no-port n_ce     T1 # eeprom !ce
+set_io --warn-no-port sram_n_ce     T1 # eeprom !ce
 set_io --warn-no-port data[0]  T2
 
 # ----------------------------- BANK-1 --------------------------------------------------------
