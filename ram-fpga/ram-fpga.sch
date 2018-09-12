@@ -1011,4 +1011,34 @@ Wire Wire Line
 	5600 4200 5500 4200
 Wire Wire Line
 	6000 4200 5800 4200
+$Comp
+L R R?
+U 1 1 5B995E39
+P 9400 4200
+F 0 "R?" H 9468 4246 50  0000 L CNN
+F 1 "10k" H 9468 4155 50  0000 L CNN
+F 2 "" H 9400 4200 50  0001 C CNN
+F 3 "" H 9400 4200 50  0001 C CNN
+F 4 "Value" H 9400 4200 60  0001 C CNN "supplier"
+F 5 "Value" H 9400 4200 60  0001 C CNN "supplier PN"
+F 6 "Value" H 9400 4200 60  0001 C CNN "MOQ"
+F 7 "Value" H 9400 4200 60  0001 C CNN "leadtime"
+	1    9400 4200
+	1    0    0    -1  
+$EndComp
+Text Label 9400 4450 0    60   ~ 0
+~oe_trans
+$Comp
+L +3.3V #PWR?
+U 1 1 5B995F9B
+P 9400 3950
+F 0 "#PWR?" H 9400 3800 50  0001 C CNN
+F 1 "+3.3V" V 9415 4078 50  0000 L CNN
+F 2 "" H 9400 3950 50  0001 C CNN
+F 3 "" H 9400 3950 50  0001 C CNN
+	1    9400 3950
+	1    0    0    -1  
+$EndComp
+Text Notes 9050 4650 0    60   ~ 0
+pullup ~oe~ to make sure tranceivers \nare off when FPGA is programmed
 $EndSCHEMATC

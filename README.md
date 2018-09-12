@@ -20,6 +20,7 @@
 * ctrl pins rx - ok
 * ctrl pins tx - ok
 * on programming fpga, 5v line draws up to 40mA
+* added 10k resistor from tranceiver !oe to FPGA 3.3v to keep them off while being programmed
 
 ## functional test
 
