@@ -1,25 +1,47 @@
+`define SIMPLE_WRITE
+
 `default_nettype none
 `include "../serial/baudgen.vh"
 
+/* 
+sram I bought from farnell is same pinout but
+
+* A14 is not connected
+* A13 is not connected
+
+*/
 module top (
 	input           clk,
     output [7:0]    LED,
-    inout [7:0]     sram_data_pins,
-    output [12:0]   sram_address,
+
     output          n_ce1,
     output          ce2,
     output          n_we,
     output          n_oe,
 
+    output  [7:0]    sram_data_write,
+    input   [7:0]   sram_data_read,
+    output  [12:0]   sram_address,
+
+    output          sram_n_write,
+    output          sram_n_oe,
+    output          sram_n_ce,
+
+    // serial
     input rx,
-    output tx
+    output tx,
+
+    // these 3 control the tranceivers
+    output          trans_tx_data,
+    output          trans_tx_addr,
+    output          trans_n_oe
 );
 
     reg reset = 1;
 
     always @(posedge clk)
         reset <= 0;
-
+/*
     `ifndef DEBUG
     SB_IO #(
         .PIN_TYPE(6'b 1010_01),
@@ -30,6 +52,7 @@ module top (
         .D_IN_0(sram_data_read),
     );
     `endif
+    */
 
     wire ram_ready;
     reg [12:0] ram_address = 0;
@@ -39,12 +62,12 @@ module top (
     reg ram_start = 0;
 
     // wires for sram chip
-    wire sram_data_pins_oe;
-    wire [7:0] sram_data_write;
-    wire [7:0] sram_data_read;
+//   wire sram_data_pins_oe;
+//    wire [7:0] sram_data_write;
+//    wire [7:0] sram_data_read;
 
     // sram driver
-    sram_driver #(.WAIT_TIME(100)) sram_driver_0(
+    sram_driver #(.WAIT_TIME(10)) sram_driver_0(
         .clk(clk),
         .reset(reset),
 
@@ -60,14 +83,17 @@ module top (
         .sram_address(sram_address),
         .sram_data_read(sram_data_read),
         .sram_data_write(sram_data_write),
-        .sram_data_pins_oe(sram_data_pins_oe),
-        .n_ce1(n_ce1),
-        .ce2(ce2),
-        .n_we(n_we),
-        .n_oe(n_oe)
+        //.sram_data_pins_oe(sram_data_pins_oe),
+        .n_ce1(sram_n_ce),
+        .n_we(sram_n_write),
+        .n_oe(sram_n_oe)
     );
+    `ifdef SIMPLE_WRITE 
 
-    /*
+    assign trans_n_oe = 0; // turn on tranceivers
+    assign trans_tx_data = 0; // receive on data transceiver
+    assign trans_tx_addr = 1; // transmit on addr transceiver
+
     localparam STATE_START = 0;
     localparam STATE_READ = 1;
     localparam STATE_READ_WAIT = 2;
@@ -80,35 +106,41 @@ module top (
         // sync reset
         if(reset) begin
             state <= STATE_START;
-            address <= 0;
+            ram_address <= 0;
         end else
         // state machine
         case( state )
             STATE_START: begin
-                if(ready == 1) begin
+                if(ram_ready == 1) begin
                     state <= STATE_READ;
-                    re <= 1;
+                    ram_re <= 1;
                 end
             end
             STATE_READ: begin
-                start <= 1;
+                ram_start <= 1;
                 state <= STATE_READ_WAIT;
             end
             STATE_READ_WAIT: begin
-                if(ready == 1) begin
-                    start <= 0;
-                    address <= address + 1;
+                if(ram_ready == 1) begin
+                    ram_start <= 0;
+                    ram_address <= ram_address + 1;
+                    //ram_data_write <= ram_address[7:0];
                     state <= STATE_READ;
-                    if(address == 14'h2000-1)
+                    if(ram_address == 14'h2000-1)
                         state <= STATE_END;
                 end
             end
             STATE_END: begin
-                state <= STATE_END;
+                state <= STATE_START;
             end
         endcase
     end
-    */
+
+    assign LED = ram_data_read;
+
+    `endif
+
+    `ifdef SERIAL_CONTROL
 
     assign LED = ram_address[12:5];
 
@@ -206,6 +238,7 @@ module top (
         tx_strb <= 1'b0;
 
   end
+    `endif
 
 endmodule
 

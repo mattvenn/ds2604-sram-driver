@@ -24,7 +24,7 @@ module sram_driver (
     input  wire [7:0]      sram_data_read,      // sram data pins in
     output reg             sram_data_pins_oe,   // sram data pins direction, high for data out
     output wire            n_ce1,               // !ce1
-    output wire            ce2,                 // ce2 - combination of these chip enables standby
+    output wire            ce2,                 // ce2 - combination of these chip enables standby - this driver connects them both together
     output wire            n_we,                // !we - low to write
     output wire            n_oe                 // !oe - low to enable outputs
     );

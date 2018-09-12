@@ -1,28 +1,81 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Tue Sep 11 15:56:09 2018
+[*] Wed Sep 12 17:33:21 2018
 [*]
-[dumpfile] "/home/matt/work/pinball/sram_driver/test.vcd"
-[dumpfile_mtime] "Tue Sep 11 15:55:24 2018"
-[dumpfile_size] 103991
-[savefile] "/home/matt/work/pinball/sram_driver/gtk-top.gtkw"
-[timestart] 0
-[size] 1933 600
+[dumpfile] "/home/matt/work/pinball/hdl/sram_driver/test.vcd"
+[dumpfile_mtime] "Wed Sep 12 17:32:52 2018"
+[dumpfile_size] 35929
+[savefile] "/home/matt/work/pinball/hdl/sram_driver/gtk-top.gtkw"
+[timestart] 2944097
+[size] 2512 1573
 [pos] -1 -1
-*-25.000000 63401040 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-10.000000 2946882 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] test.
+[treeopen] test.top_inst.
 [sst_width] 253
 [signals_width] 497
 [sst_expanded] 1
-[sst_vpaned_height] 158
+[sst_vpaned_height] 500
 @28
 test.clk
 test.top_inst.reset
 test.top_inst.state[2:0]
 @22
-test.top_inst.sram_address[13:0]
-test.top_inst.address[12:0]
-@23
 test.top_inst.LED[7:0]
+@28
+test.top_inst.sram_n_ce
+test.top_inst.sram_n_oe
+test.top_inst.sram_n_write
+@c00022
+test.top_inst.ram_address[12:0]
+@28
+(0)test.top_inst.ram_address[12:0]
+(1)test.top_inst.ram_address[12:0]
+(2)test.top_inst.ram_address[12:0]
+(3)test.top_inst.ram_address[12:0]
+(4)test.top_inst.ram_address[12:0]
+(5)test.top_inst.ram_address[12:0]
+(6)test.top_inst.ram_address[12:0]
+(7)test.top_inst.ram_address[12:0]
+(8)test.top_inst.ram_address[12:0]
+(9)test.top_inst.ram_address[12:0]
+(10)test.top_inst.ram_address[12:0]
+(11)test.top_inst.ram_address[12:0]
+(12)test.top_inst.ram_address[12:0]
+@1401200
+-group_end
+@800022
+test.top_inst.ram_data_write[7:0]
+@28
+(0)test.top_inst.ram_data_write[7:0]
+(1)test.top_inst.ram_data_write[7:0]
+(2)test.top_inst.ram_data_write[7:0]
+(3)test.top_inst.ram_data_write[7:0]
+(4)test.top_inst.ram_data_write[7:0]
+(5)test.top_inst.ram_data_write[7:0]
+(6)test.top_inst.ram_data_write[7:0]
+(7)test.top_inst.ram_data_write[7:0]
+@c00023
+test.top_inst.ram_data_read[7:0]
+@28
+(0)test.top_inst.ram_data_read[7:0]
+(1)test.top_inst.ram_data_read[7:0]
+(2)test.top_inst.ram_data_read[7:0]
+(3)test.top_inst.ram_data_read[7:0]
+(4)test.top_inst.ram_data_read[7:0]
+(5)test.top_inst.ram_data_read[7:0]
+(6)test.top_inst.ram_data_read[7:0]
+(7)test.top_inst.ram_data_read[7:0]
+@1401201
+-group_end
+@1001200
+-group_end
+@200
+-
+@22
+test.top_inst.sram_driver_0.counter[3:0]
+@28
+test.top_inst.sram_driver_0.we
+test.top_inst.sram_driver_0.ce
 [pattern_trace] 1
 [pattern_trace] 0
