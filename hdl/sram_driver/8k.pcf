@@ -62,11 +62,12 @@ set_io --warn-no-port sram_address[12] T13
 set_io --warn-no-port sram_address[4]  T14
 set_io --warn-no-port sram_address[14] N12
 set_io --warn-no-port sram_address[3]  P13
-set_io --warn-no-port trans_tx_data N10 # transceiver tx !rx data
-set_io --warn-no-port sram_address[2]  M11
-set_io --warn-no-port trans_tx_sram_address T11 # transceiver tx !rx address and ctrl
-set_io --warn-no-port sram_address[1]  P10
+
 set_io --warn-no-port trans_n_oe T10 # !oe all tranceivers
+set_io --warn-no-port trans_tx_data N10 # transceiver tx !rx data
+set_io --warn-no-port trans_tx_sram_address T11 # transceiver tx !rx address and ctrl
+set_io --warn-no-port sram_address[2]  M11
+set_io --warn-no-port sram_address[1]  P10
 set_io --warn-no-port sram_address[0]  R10
 set_io --warn-no-port sram_n_write  P8  # sram n_write pin
 set_io --warn-no-port sram_address[13] T9
