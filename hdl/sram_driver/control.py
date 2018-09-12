@@ -3,6 +3,7 @@ import serial
 import csv
 import struct
 import time
+import random
 
 ser=serial.Serial()
 ser.port="/dev/ttyUSB1"
@@ -31,7 +32,7 @@ def cmd(cmd, data=0):
 #    print(cmd, data )
     return data
 
-write = False
+write = True
 read = True
 tests = 0
 try:
@@ -42,16 +43,17 @@ try:
             if tests % 100 == 0:
                 print(tests, i)
 
+            number = random.randint(0,255)
             data = cmd('ADDR', i)
             if write:
-                cmd('LOAD', i)
+                cmd('LOAD', number)
                 cmd('WRITE')
             if read:
                 cmd('READ_REQ')
                 read_data = cmd('READ')
 
             if read and write:
-                if(read_data == i):
+                if(read_data == number):
                     pass
                     #print("pass")
                 else:

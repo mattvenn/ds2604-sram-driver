@@ -1,4 +1,5 @@
-`define SIMPLE_WRITE
+//`define SIMPLE_WRITE
+`define SERIAL_CONTROL
 
 `default_nettype none
 `include "../serial/baudgen.vh"
@@ -19,8 +20,9 @@ module top (
     output          n_we,
     output          n_oe,
 
-    output  [7:0]    sram_data_write,
-    input   [7:0]   sram_data_read,
+//    output  [7:0]    sram_data_write,
+//    input   [7:0]   sram_data_read,
+    inout  [7:0]    sram_data_pins,
     output  [12:0]   sram_address,
 
     output          sram_n_write,
@@ -41,7 +43,7 @@ module top (
 
     always @(posedge clk)
         reset <= 0;
-/*
+
     `ifndef DEBUG
     SB_IO #(
         .PIN_TYPE(6'b 1010_01),
@@ -52,7 +54,6 @@ module top (
         .D_IN_0(sram_data_read),
     );
     `endif
-    */
 
     wire ram_ready;
     reg [12:0] ram_address = 0;
@@ -61,10 +62,10 @@ module top (
     reg ram_re = 0;
     reg ram_start = 0;
 
-    // wires for sram chip
-//   wire sram_data_pins_oe;
-//    wire [7:0] sram_data_write;
-//    wire [7:0] sram_data_read;
+    // tristate wires for sram chip
+    wire sram_data_pins_oe;
+    wire [7:0] sram_data_write;
+    wire [7:0] sram_data_read;
 
     // sram driver
     sram_driver #(.WAIT_TIME(10)) sram_driver_0(
@@ -83,7 +84,7 @@ module top (
         .sram_address(sram_address),
         .sram_data_read(sram_data_read),
         .sram_data_write(sram_data_write),
-        //.sram_data_pins_oe(sram_data_pins_oe),
+        .sram_data_pins_oe(sram_data_pins_oe),
         .n_ce1(sram_n_ce),
         .n_we(sram_n_write),
         .n_oe(sram_n_oe)
@@ -91,7 +92,7 @@ module top (
     `ifdef SIMPLE_WRITE 
 
     assign trans_n_oe = 0; // turn on tranceivers
-    assign trans_tx_data = 0; // receive on data transceiver
+    assign trans_tx_data = sram_data_pins_oe; // turn on tranceiver tx same time as enabling the data tx pins of the driver
     assign trans_tx_addr = 1; // transmit on addr transceiver
 
     localparam STATE_START = 0;
@@ -142,7 +143,11 @@ module top (
 
     `ifdef SERIAL_CONTROL
 
-    assign LED = ram_address[12:5];
+    assign LED = ram_data_read;
+
+    assign trans_n_oe = 0; // turn on tranceivers
+    assign trans_tx_data = sram_data_pins_oe; // turn on tranceiver tx same time as enabling the data tx pins of the driver
+    assign trans_tx_addr = 1; // transmit on addr transceiver
 
     // serial port setup
     localparam BAUD = `B115200;
