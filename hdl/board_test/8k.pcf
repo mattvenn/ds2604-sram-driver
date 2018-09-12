@@ -1,0 +1,158 @@
+###################################
+# Physical constraints file (pcf) #
+# for iCE40HX8K-CT256             #
+###################################
+
+
+### Clock
+set_io --warn-no-port clk J3
+
+### LEDs
+set_io --warn-no-port LED[0] B5
+set_io --warn-no-port LED[1] B4
+set_io --warn-no-port LED[2] A2
+set_io --warn-no-port LED[3] A1
+set_io --warn-no-port LED[4] C5
+set_io --warn-no-port LED[5] C4
+set_io --warn-no-port LED[6] B3
+set_io --warn-no-port LED[7] C3
+
+
+### UART (FTDI Channel B)
+set_io --warn-no-port rx B10
+set_io --warn-no-port tx B12
+set_io --warn-no-port RTSn       B13
+set_io --warn-no-port CTSn       A15
+set_io --warn-no-port dtr       A16
+set_io --warn-no-port DSRn       B14
+set_io --warn-no-port DCDn       B15
+
+#				 J3
+#			       --------
+#			 1---| R16 VCC |---2	VCCIO2
+#       	 3---| T15 T16 |---4
+#			 5---| T13 T14 |---6
+#			 7---| GND GND |---8
+#			 9---| N12 P13 |---10
+#			     --------
+#			11---| N10 M11 |---12
+#			13---| T11 P10 |---14
+#			15---| GND GND |---16
+#			17---| T10 R10 |---18
+#			19---| P8  P9  |---20
+#			      --------
+#			21---| T9  R9  |---22
+#			23---| GND GND |---24
+#			25---| T7  T8  |---26
+#			27---| T6  R6  |---28
+#			29---| T5  R5  |---30
+#			      --------
+#			31---| GND GND |---32
+#			33---| R3  R4  |---34
+#			35---| R2  T3  |---36
+#			37---| T1  T2  |---38
+#			39---| GND GND |---40
+#			      ---------
+
+
+set_io --warn-no-port addr[6]  R16
+set_io --warn-no-port addr[7]  T15
+set_io --warn-no-port addr[5]  T16
+set_io --warn-no-port addr[12] T13
+set_io --warn-no-port addr[4]  T14
+set_io --warn-no-port addr[14] N12
+set_io --warn-no-port addr[3]  P13
+set_io --warn-no-port t_r_data N10 # transceiver tx !rx data
+set_io --warn-no-port addr[2]  M11
+set_io --warn-no-port t_r_addr T11 # transceiver tx !rx address and ctrl
+set_io --warn-no-port addr[1]  P10
+set_io --warn-no-port n_oe_trans T10 # !oe all tranceivers
+set_io --warn-no-port addr[0]  R10
+set_io --warn-no-port n_write  P8  # sram n_write pin
+set_io --warn-no-port data[3]  P9
+set_io --warn-no-port addr[13] T9
+set_io --warn-no-port data[4]  R9
+set_io --warn-no-port addr[8]  T7
+set_io --warn-no-port data[5]  T8
+set_io --warn-no-port addr[9]  T6
+set_io --warn-no-port data[6]  R6
+set_io --warn-no-port addr[11] T5
+set_io --warn-no-port data[7]  R5
+set_io --warn-no-port n_oe     R3 # eeprom !oe
+set_io --warn-no-port data[2]  R4
+set_io --warn-no-port addr[10] R2
+set_io --warn-no-port data[1]  T3
+set_io --warn-no-port n_ce     T1 # eeprom !ce
+set_io --warn-no-port data[0]  T2
+
+# ----------------------------- BANK-1 --------------------------------------------------------
+
+
+# ------------------------ PMOD1 connector (J2)------------------------------------------------
+#
+#
+#                     ************************************
+#                     *                                  *
+# --------------------*-INSTALADO DE FABRICA EN LA PLACA *------------------------------------- 
+#                     *                                  *
+#                     ************************************
+#
+#
+#
+#				 J2
+#			       --------
+#			 1---| 1V2 VCC |---2	VCCIO1_01
+#     			 3---| 1V2 R15 |---4
+#			 5---| P16 P15 |---6
+#			 7---| GND GND |---8
+#			 9---| N16 M15 |---10
+#			     --------
+#			11---| M16 L16 |---12
+#			13---| K15 K16 |---14
+#			15---| GND GND |---16
+#			17---| K14 J14 |---18
+#			19---| G14 F14 |---20
+#			      --------
+#			21---| J15 H14 |---22
+#			23---| GND GND |---24
+#		GBIN2	25---| H16 G15 |---26
+#			27---| G16 F15 |---28
+#			29---| F16 E14 |---30
+#			      --------
+#			31---| GND GND |---32
+#			33---| E16 D15 |---34
+#			35---| D16 D14 |---36
+#			37---| C16 B16 |---38
+#			39---| GND GND |---40
+#			      ---------
+
+
+set_io --warn-no-port PMOD14 R15
+set_io --warn-no-port PMOD15 P16
+set_io --warn-no-port PMOD16 P15
+set_io --warn-no-port PMOD19 N16
+set_io --warn-no-port PMOD110 M15
+set_io --warn-no-port PMOD111 M16
+set_io --warn-no-port PMOD112 L16
+set_io --warn-no-port PMOD113 K15
+set_io --warn-no-port PMOD114 K16
+set_io --warn-no-port PMOD117 K14
+set_io --warn-no-port PMOD118 J14
+set_io --warn-no-port PMOD119 G14
+set_io --warn-no-port PMOD120 F14
+set_io --warn-no-port PMOD121 J15
+set_io --warn-no-port PMOD122 H14
+set_io --warn-no-port PMOD125 H16
+set_io --warn-no-port PMOD126 G15
+set_io --warn-no-port PMOD127 G16
+set_io --warn-no-port PMOD128 F15
+set_io --warn-no-port PMOD129 F16
+set_io --warn-no-port PMOD130 E14
+set_io --warn-no-port PMOD133 E16
+set_io --warn-no-port PMOD134 D15
+set_io --warn-no-port PMOD135 D14
+set_io --warn-no-port PMOD136 D16
+set_io --warn-no-port PMOD137 C16
+set_io --warn-no-port PMOD138 B16
+
+
