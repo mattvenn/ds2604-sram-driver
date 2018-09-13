@@ -1,0 +1,3 @@
+0 WAIT
+1 READ
+2 WRITE
