@@ -26,7 +26,7 @@ debug:
 	gtkwave test.vcd gtk-sram_driver.gtkw
 
 debug-top:
-	iverilog -DDEBUG -o top sram_driver.v top.v top_tb.v
+	iverilog -DDEBUG -o top sram_driver.v top.v top_tb.v -I ../serial -y ../serial
 	vvp top -fst
 	gtkwave test.vcd gtk-top.gtkw
 
