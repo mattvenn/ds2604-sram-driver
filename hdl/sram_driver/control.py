@@ -33,10 +33,10 @@ def cmd(cmd, data=0):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="communicate with FPGA over serial")
     parser.add_argument('--port', default='/dev/ttyUSB0', help="serial port")
-    parser.add_argument('--read', default=False, help="read test")
-    parser.add_argument('--write', default=False, help="write test")
-    parser.add_argument('--sequential', default=True, help="sequential write")
-    parser.add_argument('--random', default=False, help="random write")
+    parser.add_argument('--write', const=True, action="store_const", help="write test")
+    parser.add_argument('--read', const=True, action="store_const", help="read test")
+    parser.add_argument('--sequential', const=True, action="store_const", help="sequential write")
+    parser.add_argument('--random', const=True, action="store_const", help="random write")
     parser.add_argument('--num-tests', type=int, default=10, help="number of tests")
     parser.add_argument('-v','--verbose', dest="verbose", action="store_const", help="verbose", const=True)
 
@@ -49,8 +49,6 @@ if __name__ == '__main__':
     ser.open()
     print("port open")
 
-    write = False
-    read = True
     tests = 0
     try:
         for addr in range(0, args.num_tests):
@@ -65,16 +63,16 @@ if __name__ == '__main__':
             else:
                 exit("must give sequential or random argument")
             data = cmd('ADDR', addr)
-            if write:
+            if args.write:
                 cmd('LOAD', number)
                 cmd('WRITE')
                 print(addr, number)
-            if read:
+            if args.read:
                 cmd('READ_REQ')
                 read_data = cmd('READ')
                 print(addr, read_data)
 
-            if read and write:
+            if args.read and args.write:
                 if(read_data == number):
                     pass
                     #print("pass")
