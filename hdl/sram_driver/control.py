@@ -35,9 +35,10 @@ if __name__ == '__main__':
     parser.add_argument('--port', default='/dev/ttyUSB0', help="serial port")
     parser.add_argument('--write', const=True, action="store_const", help="write test")
     parser.add_argument('--read', const=True, action="store_const", help="read test")
-    parser.add_argument('--sequential', const=True, action="store_const", help="sequential write")
+    parser.add_argument('--sequential', default=True, const=True, action="store_const", help="sequential write")
     parser.add_argument('--random', const=True, action="store_const", help="random write")
-    parser.add_argument('--num-tests', type=int, default=10, help="number of tests")
+    parser.add_argument('--addr-end', type=int, default=10, help="number to end")
+    parser.add_argument('--addr-start', type=int, default=0, help="where to start")
     parser.add_argument('-v','--verbose', dest="verbose", action="store_const", help="verbose", const=True)
 
     args = parser.parse_args()
@@ -51,7 +52,7 @@ if __name__ == '__main__':
 
     tests = 0
     try:
-        for addr in range(0, args.num_tests):
+        for addr in range(args.addr_start, args.addr_end):
             tests += 1
             if tests % 100 == 0:
                 print(tests, addr)
