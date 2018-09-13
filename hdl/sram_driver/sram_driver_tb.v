@@ -1,6 +1,6 @@
 `define assert(signal, value) \
         if (signal !== value) begin \
-            $display("ASSERTION FAILED in %m: signal != value"); \
+            $display("ASSERTION FAILED in %m: signal %d != value %d", signal, value); \
             $finish; \
         end
 
@@ -29,7 +29,7 @@ module test;
             wait(ready == 0);
             start <= 0;
             wait(ready == 1);
-            `assert(data_out, address);
+            `assert(data_read, address);
         end
 
         # 800;
@@ -39,7 +39,7 @@ module test;
         for( i = 13'd0; i <= 13'd255; i ++ ) begin
             address <= i;
             re <= 0;
-            data_in <= 13'd255 - i;
+            data_write <= 13'd255 - i;
             start <= 1;
             wait(ready == 0);
             start <= 0;
@@ -58,7 +58,7 @@ module test;
             wait(ready == 0);
             start <= 0;
             wait(ready == 1);
-            `assert(data_out, 13'd255 - i);
+            `assert(data_read, 13'd255 - i);
         end
 
         # 800
@@ -74,13 +74,13 @@ module test;
     // wires for sram interface
     wire ready;
     reg [12:0] address = 0;
-    reg [7:0] data_in = 0;
-    wire [7:0] data_out;
+    reg [7:0] data_write = 0;
+    wire [7:0] data_read;
     reg re = 0;
     reg start = 0;
 
     // sram driver
-    sram_driver sram_driver_0(
+    sram_driver #(.WAIT_TIME(3)) sram_driver_0(
         .clk(clk),
         .reset(reset),
 
@@ -89,8 +89,8 @@ module test;
         .re(re),
         .start(start),
         .address(address),
-        .data_in(data_in),
-        .data_out(data_out),
+        .data_write(data_write),
+        .data_read(data_read),
 
         // sram control pins
         .sram_address(sram_address),
