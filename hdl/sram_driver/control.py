@@ -46,17 +46,9 @@ if __name__ == '__main__':
     ser.baudrate=115200
     ser.timeout=1
     ser.open()
-    print("port open")
 
-    tests = 0
     try:
         for addr in range(args.addr_start, args.addr_end):
-        #    cmd('COUNT');
-        #    time.sleep(0.5)
-        #    continue
-            tests += 1
-            if tests % 100 == 0:
-                print(tests, addr)
 
             if args.sequential:
                 number = addr % 255
@@ -79,7 +71,6 @@ if __name__ == '__main__':
             if args.read and args.write:
                 if(read_data == number):
                     pass
-                    #print("pass")
                 else:
                     print("failed at addr %d, was %d" % (addr, read_data))
 
