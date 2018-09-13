@@ -35,7 +35,7 @@ if __name__ == '__main__':
     parser.add_argument('--port', default='/dev/ttyUSB0', help="serial port")
     parser.add_argument('--write', const=True, action="store_const", help="write test")
     parser.add_argument('--read', const=True, action="store_const", help="read test")
-    parser.add_argument('--sequential', default=True, const=True, action="store_const", help="sequential write")
+    parser.add_argument('--sequential', const=True, action="store_const", help="sequential write")
     parser.add_argument('--random', const=True, action="store_const", help="random write")
     parser.add_argument('--addr-end', type=int, default=10, help="number to end")
     parser.add_argument('--addr-start', type=int, default=0, help="where to start")
@@ -62,7 +62,9 @@ if __name__ == '__main__':
             elif args.random:
                 number = random.randint(0,255)
             else:
-                exit("must give sequential or random argument")
+                if args.write:
+                    exit("must give sequential or random argument")
+
             data = cmd('ADDR', addr)
             if args.write:
                 cmd('LOAD', number)
