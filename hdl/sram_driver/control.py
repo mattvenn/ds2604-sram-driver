@@ -17,16 +17,14 @@ cmds = {
     'CONST': 7,
     }
 
-def cmd(cmd, data=0):
-    if args.verbose:
-        print(cmd, data)
+def cmd(cmd, tx_data=0):
     ser.write(struct.pack('B', cmds[cmd] ))
-    ser.write(struct.pack('>I', data))
-    # final byte to register the instruction
-    ser.write(struct.pack('B', 0 ))
-    # couldn't get 4 bytes to work - so reading 5!
-    data = ser.read(5)
-    b, data, = struct.unpack('>BI', data)
+    ser.write(struct.pack('>I', tx_data))
+
+    rx_data = ser.read(4)
+    data, = struct.unpack('>I', rx_data)
+    if args.verbose:
+        print(cmd, tx_data, data)
     return data
 
 
@@ -53,6 +51,9 @@ if __name__ == '__main__':
     tests = 0
     try:
         for addr in range(args.addr_start, args.addr_end):
+        #    cmd('COUNT');
+        #    time.sleep(0.5)
+        #    continue
             tests += 1
             if tests % 100 == 0:
                 print(tests, addr)

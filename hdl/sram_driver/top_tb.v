@@ -20,12 +20,15 @@ module test;
             wait(tx_ready == 0);
             tx_strb <= 0;
         end
+        #40000;
         // last byte
+        /*
         txdata <= 0;
         wait(tx_ready == 1);
         tx_strb <= 1;
         wait(tx_ready == 0);
         tx_strb <= 0;
+        */
     end
     endtask
 
@@ -49,21 +52,20 @@ module test;
 
         # 40;
         reset <= 0;
-        # 40;
+        # 1000;
 
+        /*
+        repeat(5)
+            send_data({COUNT,32'd0});
+        */
         send_data({ADDR,32'd1});
-        # 1000
         send_data({LOAD,32'd1});
-        # 1000
         send_data({WRITE,32'd0});
-        # 1000
-
         send_data({ADDR,32'd1});
-        # 1000
         send_data({READ_REQ,32'd0});
-        # 1000
         send_data({READ,32'd0});
-        # 100000
+
+        # 10000;
  
         $finish;
 
@@ -74,14 +76,19 @@ module test;
 
     always #1 clk = !clk;
 
-    wire tx;
+    wire tx, rx;
     wire tx_ready;
     reg [7:0] txdata = 0;
     reg tx_strb = 0;
 
-    assign top_inst.sram_data_read = 8'b0;
-    top top_inst(.clk(clk), .rx(tx) );
+    assign top_inst.sram_data_read = 8'hAA;
+    top top_inst(.clk(clk), .rx(tx), .tx(rx));
 
+    // instantiate rx and tx
+    uart_rx #(.BAUD(BAUD)) RX0 (.clk(clk),
+           .rstn(!reset),
+           .rx(rx)
+          );
     uart_tx #(.BAUD(BAUD)) TX0 ( .clk(clk),
              .rstn(!reset),
              .start(tx_strb),

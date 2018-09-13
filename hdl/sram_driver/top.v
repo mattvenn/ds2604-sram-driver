@@ -153,7 +153,7 @@ module top (
     localparam BAUD = `B115200;
 
     wire rcv;
-    reg tx_strb;
+    reg tx_strb = 0;
     wire [7:0] rxdata;
     reg [7:0] txdata;
     wire tx_ready;
@@ -163,6 +163,22 @@ module top (
     reg [31:0] tx_reg = 0;
     reg [2:0] rx_byte_cnt = 0;
     reg [31:0] count = 0;
+
+    // convenience buses for cmd and data bytes
+    wire [7:0] serial_cmd = rx_reg[39:32];
+    wire [31:0] serial_data_bytes = rx_reg[31:0];
+    reg [31:0] serial_reply = 0;
+
+    // bytes waiting to send
+    reg [2:0] tx_bytes = 0;
+
+    reg serial_cmd_rcvd;
+    // need a delay between starting serial and it toggling the busy pin
+    reg last_tx_ready = 0;
+    always @(posedge clk)
+        last_tx_ready <= tx_ready;
+
+    reg send_reply = 0;
 
     // instantiate rx and tx
     uart_rx #(.BAUD(BAUD)) RX0 (.clk(clk),
@@ -180,69 +196,83 @@ module top (
              .ready(tx_ready)
            );
 
-  // state machine states
-  localparam ADDR = 8'h1;
-  localparam LOAD = 8'h2;
-  localparam WRITE = 8'h3;
-  localparam READ = 8'h4;
-  localparam READ_REQ = 8'h5;
-  localparam COUNT = 8'h6;
-  localparam CONST = 8'h7;
+    // state machine states
+    localparam ADDR = 8'h1;
+    localparam LOAD = 8'h2;
+    localparam WRITE = 8'h3;
+    localparam READ = 8'h4;
+    localparam READ_REQ = 8'h5;
+    localparam COUNT = 8'h6;
+    localparam CONST = 8'h7;
 
 
-  // convenience buses for cmd and data bytes
-  wire [7:0] cmd_byte = rx_reg[39:32];
-  wire [31:0] data_bytes = rx_reg[31:0];
 
-  // bytes waiting to send
-  reg [2:0] tx_bytes = 0;
-
-  // need a delay between starting serial and it toggling the busy pin
-  reg last_tx_ready = 0;
-  always @(posedge clk)
-    last_tx_ready <= tx_ready;
-
-  // serial interface
-  // waits for 5 data bytes and 1 end byte
-  // first byte is a command (see above), second 4 make up an unsigned integer
-  always @(posedge clk) begin
-    if (rcv) begin
-        rx_reg <= {rx_reg[31:0], rxdata};
-        rx_byte_cnt <= rx_byte_cnt + 1;
-        if(rx_byte_cnt == 5) begin
-            case(cmd_byte)
-                ADDR:  begin ram_address <= data_bytes[12:0]; tx_reg <= data_bytes; end
-                LOAD:  begin ram_data_write <= data_bytes[7:0]; tx_reg <= data_bytes; end
-                WRITE: begin ram_re <= 0; ram_start <= 1; tx_reg <= WRITE; end
-                READ:  tx_reg <= ram_data_read;
-                READ_REQ: begin ram_re <= 1; ram_start <= 1; tx_reg <= READ_REQ; end
-                COUNT: begin tx_reg <= count; count <= count + 1; end
-                CONST: tx_reg <= 32'd259;
-                default: tx_reg <= count;
+    // on a serial command received, take action and make response
+    always @(posedge clk)
+        if(serial_cmd_rcvd) begin
+            send_reply <= 1; // always send a reply
+            case(serial_cmd)
+                ADDR:  begin 
+                    ram_address <= serial_data_bytes[12:0]; serial_reply <= serial_data_bytes; 
+                end
+                LOAD:  begin 
+                    ram_data_write <= serial_data_bytes[7:0]; serial_reply <= serial_data_bytes;
+                end
+                WRITE: begin 
+                    ram_re <= 0; ram_start <= 1; serial_reply <= WRITE;
+                end
+                READ:  begin 
+                    serial_reply <= ram_data_read;
+                end
+                READ_REQ: begin 
+                    ram_re <= 1; ram_start <= 1; serial_reply <= READ_REQ;
+                end
+                COUNT: begin 
+                    serial_reply <= count; count <= count + 1; 
+                end
+                default: serial_reply <= serial_cmd;
             endcase
-            rx_byte_cnt <= 0;
-            // only want 4, but couldn't get it to work, so read an extra in the control program
-            tx_bytes <= 5;
+        end else begin
+            // stop continuous writing/reading
+            ram_start <= 0;
+            // don't send reply
+            send_reply <= 0;
         end
-    end else begin
-        ram_start <= 0;
+
+
+    // serial interface
+    // first byte is a command (see above), second 4 make up an unsigned integer
+    always @(posedge clk) begin
+        if (rcv) begin
+            rx_reg <= {rx_reg[31:0], rxdata};
+            rx_byte_cnt <= rx_byte_cnt + 1;
+            if(rx_byte_cnt == 4) begin
+                serial_cmd_rcvd <= 1;
+                rx_byte_cnt <= 0;
+            end
+        end else
+            serial_cmd_rcvd <= 0;
     end
 
     // if a command is received, the tx data is queued in tx_reg
     // so while there are bytes to send, send each one
-    if (tx_bytes > 0 )begin
-        if(tx_ready) begin
-            tx_strb <= 1'b1;
-            txdata <= tx_reg[31:24]; 
-        // tx_uart takes 2 clock cycles for ready to go low after starting, so have to only do this on transition
-        end else if (~tx_ready && last_tx_ready) begin
-            tx_reg <= tx_reg << 8;
-            tx_bytes <= tx_bytes - 1;
-        end 
-    end else
-        tx_strb <= 1'b0;
+    always @(posedge clk) begin
+        if(send_reply) begin
+            tx_bytes <= 4;
+            tx_reg <= serial_reply;
+        end
+        if(tx_bytes > 0)
+            if(tx_ready) begin
+                tx_strb <= 1'b1;
+                txdata <= tx_reg[31:24]; 
+            // tx_uart takes 2 clock cycles for ready to go low after starting, so have to only do this on transition
+            end else if (~tx_ready && last_tx_ready) begin
+                tx_reg <= tx_reg << 8;
+                tx_bytes <= tx_bytes - 1;
+                tx_strb <= 1'b0;
+            end 
+    end
 
-  end
     `endif
 
 endmodule
