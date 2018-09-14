@@ -38,6 +38,7 @@ if __name__ == '__main__':
     parser.add_argument('--addr-end', type=int, default=10, help="number to end")
     parser.add_argument('--addr-start', type=int, default=0, help="where to start")
     parser.add_argument('-v','--verbose', dest="verbose", action="store_const", help="verbose", const=True)
+    parser.add_argument('--hex', dest="hex", action="store_const", help="output in hex", const=True)
 
     args = parser.parse_args()
 
@@ -66,7 +67,10 @@ if __name__ == '__main__':
             if args.read:
                 cmd('READ_REQ')
                 read_data = cmd('READ')
-                print(addr, read_data)
+                if args.hex:
+                    print("%04x %02x" % (addr, read_data))
+                else:
+                    print("%d %d" % (addr, read_data))
 
             if args.read and args.write:
                 if(read_data == number):
