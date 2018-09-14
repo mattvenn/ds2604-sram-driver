@@ -10,15 +10,25 @@ sram I bought from farnell is same pinout but
 * A14 is not connected
 * A13 is not connected
 
+
+rottendoc schematic shows:
+
+* !OE always gnd
+* !cs1 is controlled by bus
+* cs2 is tied high via 10k
+* !we is tied high via 10k and attached to rw control
+
+as all these control pins will have to be outputs for reading:
+
+* drive !oe 0v
+* drive cs2 (pin 26 - maps to A13) high
+* !we is attached to sram driver
+* !cs1 is attached to the sram driver
+
 */
 module top (
 	input           clk,
     output [7:0]    LED,
-
-    output          n_ce1,
-    output          ce2,
-    output          n_we,
-    output          n_oe,
 
 //    output  [7:0]    sram_data_write,
 //    input   [7:0]   sram_data_read,
@@ -27,7 +37,8 @@ module top (
 
     output          sram_n_write,
     output          sram_n_oe,
-    output          sram_n_ce,
+    output          sram_n_ce1,
+    output          sram_ce2,
 
     // serial
     input rx,
@@ -68,7 +79,7 @@ module top (
     wire [7:0] sram_data_read;
 
     // sram driver
-    sram_driver #(.WAIT_TIME(10)) sram_driver_0(
+    sram_driver #(.WAIT_TIME(20)) sram_driver_0(
         .clk(clk),
         .reset(reset),
 
@@ -85,10 +96,14 @@ module top (
         .sram_data_read(sram_data_read),
         .sram_data_write(sram_data_write),
         .sram_data_pins_oe(sram_data_pins_oe),
-        .n_ce1(sram_n_ce),
+        .n_ce1(sram_n_ce1),
         .n_we(sram_n_write),
-        .n_oe(sram_n_oe)
+        //.n_oe(sram_n_oe) // schematic shows n_oe tied to gnd so don't ever try and drive it
     );
+
+    assign sram_n_oe = 0; // tied to 0v in the rottendog
+    assign sram_ce2 = 1;  // tied to 5v via 10k in rottendog
+
     `ifdef SIMPLE_WRITE 
 
     assign trans_n_oe = 0; // turn on tranceivers
@@ -137,7 +152,7 @@ module top (
         endcase
     end
 
-    assign LED = ram_data_read;
+    assign LED = sram_data_pins;
 
     `endif
 
