@@ -1,6 +1,6 @@
 `default_nettype none
-`define TEST_OUTPUT
-//`define TEST_INPUT
+//`define TEST_OUTPUT
+`define TEST_INPUT
 module top (
 	input           clk,
     output [7:0]    LED,
@@ -97,9 +97,9 @@ module top (
     assign trans_tx_addr = 0; // receive on addr transceiver
 
 //    assign LED = data[7:0];
-//    assign LED = addr[7:0];
-    //assign LED = addr[14:8];
-    assign LED = { sram_n_write, sram_n_oe, sram_n_ce };
+    assign LED = addr[7:0];
+//    assign LED = addr[14:8];
+    //assign LED = data[7:0]; // { sram_n_write, sram_n_oe, sram_n_ce };
     `endif
 
 
