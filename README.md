@@ -71,6 +71,13 @@ https://www.ipdb.org/machine.cgi?id=856
 williams system 6  (rottendog MPU327-4)
 good photo: https://pinside.com/pinball/market/classifieds/archive/25465
 
+rottendog sram chip:
+https://www.mouser.es/datasheet/2/12/AS6C6264A-1288481.pdf
+
+initial high score is 550,000 = 0x08_64_70 
+
+couldn't find it, so got a fake new score: 803950 = 0x0c_44_6e
+
 ## doctor who
 
 https://www.ipdb.org/machine.cgi?id=738
