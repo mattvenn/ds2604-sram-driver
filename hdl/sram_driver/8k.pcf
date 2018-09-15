@@ -60,26 +60,34 @@ set_io --warn-no-port sram_n_oe     R3 # eeprom !oe - always tied to gnd
 set_io --warn-no-port sram_n_ce1    T1 # eeprom !cs1
 set_io --warn-no-port sram_n_write  P8  # sram n_write pin
 
-set_io --warn-no-port sram_address[6]  R16
-set_io --warn-no-port sram_address[7]  T15
-set_io --warn-no-port sram_address[5]  T16
-set_io --warn-no-port sram_address[12] T13
-set_io --warn-no-port sram_address[4]  T14
-set_io --warn-no-port sram_address[14] N12
-set_io --warn-no-port sram_address[3]  P13
 
 set_io --warn-no-port trans_n_oe T10 # !oe all tranceivers
 set_io --warn-no-port trans_tx_data N10 # transceiver tx !rx data
 set_io --warn-no-port trans_tx_sram_address T11 # transceiver tx !rx address and ctrl
-set_io --warn-no-port sram_address[2]  M11
-set_io --warn-no-port sram_address[1]  P10
 set_io --warn-no-port sram_address[0]  R10
-#set_io --warn-no-port sram_address[13] T9
+set_io --warn-no-port sram_address[1]  P10
+set_io --warn-no-port sram_address[2]  M11
+set_io --warn-no-port sram_address[3]  P13
+set_io --warn-no-port sram_address[4]  T14
+set_io --warn-no-port sram_address[5]  T16
+set_io --warn-no-port sram_address[6]  R16
+set_io --warn-no-port sram_address[7]  T15
 set_io --warn-no-port sram_address[8]  T7
 set_io --warn-no-port sram_address[9]  T6
-set_io --warn-no-port sram_address[11] T5
 set_io --warn-no-port sram_address[10] R2
+set_io --warn-no-port sram_address[11] T5
+set_io --warn-no-port sram_address[12] T13
 
+#set_io --warn-no-port sram_address[14] N12
+
+set_io --warn-no-port sram_data_pins[0]  T2
+set_io --warn-no-port sram_data_pins[1]  T3
+set_io --warn-no-port sram_data_pins[2]  R4
+set_io --warn-no-port sram_data_pins[3]  P9
+set_io --warn-no-port sram_data_pins[4]  R9
+set_io --warn-no-port sram_data_pins[5]  T8
+set_io --warn-no-port sram_data_pins[6]  R6
+set_io --warn-no-port sram_data_pins[7]  R5
 
 #set_io --warn-no-port sram_data_write[3]  P9
 #set_io --warn-no-port sram_data_write[4]  R9
@@ -99,14 +107,6 @@ set_io --warn-no-port sram_address[10] R2
 #set_io --warn-no-port sram_data_read[1]  T3
 #set_io --warn-no-port sram_data_read[0]  T2
 
-set_io --warn-no-port sram_data_pins[3]  P9
-set_io --warn-no-port sram_data_pins[4]  R9
-set_io --warn-no-port sram_data_pins[5]  T8
-set_io --warn-no-port sram_data_pins[6]  R6
-set_io --warn-no-port sram_data_pins[7]  R5
-set_io --warn-no-port sram_data_pins[2]  R4
-set_io --warn-no-port sram_data_pins[1]  T3
-set_io --warn-no-port sram_data_pins[0]  T2
 
 # ----------------------------- BANK-1 --------------------------------------------------------
 

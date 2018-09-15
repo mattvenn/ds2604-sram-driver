@@ -97,7 +97,7 @@ module top (
         .sram_data_write(sram_data_write),
         .sram_data_pins_oe(sram_data_pins_oe),
         .n_ce1(sram_n_ce1),
-        .n_we(sram_n_write),
+        .n_we(sram_n_write)
         //.n_oe(sram_n_oe) // schematic shows n_oe tied to gnd so don't ever try and drive it
     );
 
@@ -158,7 +158,7 @@ module top (
 
     `ifdef SERIAL_CONTROL
 
-    assign LED = ram_data_read;
+    assign LED = sram_data_read; //sram_address[7:0];
 
     assign trans_n_oe = 0; // turn on tranceivers
     assign trans_tx_data = sram_data_pins_oe; // turn on tranceiver tx same time as enabling the data tx pins of the driver

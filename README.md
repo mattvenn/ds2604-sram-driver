@@ -74,9 +74,66 @@ good photo: https://pinside.com/pinball/market/classifieds/archive/25465
 rottendog sram chip:
 https://www.mouser.es/datasheet/2/12/AS6C6264A-1288481.pdf
 
-initial high score is 550,000 = 0x08_64_70 
+initial high score is 550,000 = 0x00_g08_64_70 
 
 couldn't find it, so got a fake new score: 803950 = 0x0c_44_6e
+         = 80 39 50
+
+         = 50 39 50
+
+motorola 6800 is big endian, intel is little endian
+
+After searching for packed BCD of default string - got a match at 0x1149
+
+    grep -A3 '^1149' dump.8192.5
+    1149 55
+    114a 00
+    114b 00
+    114c 00
+
+Then checked for the new high score that we set 803950:
+
+    grep -A3 '^1149' dump.8000.newhigh
+    1149 80
+    114a 03
+    114b 39
+    114c 05
+
+Write this to a default chip:
+
+    ./control.py --port /dev/ttyUSB1 --addr-start 1149 --addr-end 114d --read --hex
+    1149 80
+    114a 03
+    114b 39
+    114c 05
+
+And then read it back:
+
+    ./control.py --port /dev/ttyUSB1 --addr-start 1149 --addr-end  114d --read --hex
+    1149 80
+    114a 03
+    114b 39
+    114c 05
+
+But display shows 503950! Checked one byte before start address 1148:
+
+55 00 00:
+1148 05
+1149 55
+114a 00
+114b 00
+114c 00
+
+80 39 50:
+1148 08
+1149 80
+114a 03
+114b 39
+114c 05
+
+And can see it's the low nibble in each byte. Don't know what the upper nibble
+represents. Wrote 10k to the score and it works, can beat it easily - which
+should make the next step easier.
 
 ## doctor who
 
