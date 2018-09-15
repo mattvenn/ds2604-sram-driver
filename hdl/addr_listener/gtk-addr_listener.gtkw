@@ -1,0 +1,40 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Sep 15 13:11:46 2018
+[*]
+[dumpfile] "/home/mattvenn/work/fpga/ds2604-sram-driver/hdl/addr_listener/test.vcd"
+[dumpfile_mtime] "Sat Sep 15 13:11:26 2018"
+[dumpfile_size] 1067
+[savefile] "/home/mattvenn/work/fpga/ds2604-sram-driver/hdl/addr_listener/gtk-addr_listener.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-4.000000 17 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 263
+[signals_width] 284
+[sst_expanded] 1
+[sst_vpaned_height] 155
+@28
+test.clk
+test.reset
+@22
+test.sram_address[12:0]
+test.sram_data_pins[7:0]
+@28
+test.sram_n_ce1
+test.sram_n_write
+@200
+-top inst
+@22
+test.top_inst.sram_address[12:0]
+test.top_inst.sram_data_pins[7:0]
+@28
+test.top_inst.sram_ce
+test.top_inst.sram_write
+@23
+test.top_inst.leds[7:0]
+@22
+test.top_inst.LED[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
