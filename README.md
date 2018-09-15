@@ -9,7 +9,32 @@ documentation](https://threadreaderapp.com/thread/1040240733838557184.html)
 
 After modelling, testing and reading/writing to the SRAM. I only needed to
 listen to the bus lines to know when the data was being read. That is done by
-[addr_reader](hdl/addr_reader)
+[addr_listener](hdl/addr_listener):
+
+    always @(clk) begin
+        if(sram_ce) begin
+            if(ce_counter < WAIT)
+                ce_counter <= ce_counter + 1;
+            else if(ce_counter == WAIT) begin
+                case(sram_address)
+                    sc_100_k:
+                        high_score[23:20] <= sram_data_pins[3:0];
+                    sc_10_k:
+                        high_score[19:16] <= sram_data_pins[3:0];
+                    sc_1_k:
+                        high_score[15:12] <= sram_data_pins[3:0];
+                    sc_100:
+                        high_score[11: 8] <= sram_data_pins[3:0];
+                    sc_10:
+                        high_score[ 7: 4] <= sram_data_pins[3:0];
+                    sc_1:
+                        high_score[ 3: 0] <= sram_data_pins[3:0];
+                endcase
+            end
+        else
+            ce_counter <= 0;
+        end 
+    end
 
 ## plan
 
