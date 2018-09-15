@@ -1,4 +1,5 @@
 `default_nettype none
+`include "../serial/baudgen.vh"
 module top (
 	input           clk,
 
@@ -11,7 +12,11 @@ module top (
     // these 3 control the tranceivers
     output          trans_tx_data,
     output          trans_tx_sram_address,
-    output          trans_n_oe
+    output          trans_n_oe,
+
+    // serial
+    input rx,
+    output tx
 
 );
     
@@ -74,8 +79,104 @@ module top (
 
     assign LED = leds;
 
+    // serial port setup
+    localparam BAUD = `B115200;
+
+    wire rcv;
+    reg tx_strb = 0;
+    wire [7:0] rxdata;
+    reg [7:0] txdata;
+    wire tx_ready;
+    wire logic_ce;
+
+    reg [39:0] rx_reg = 0;
+    reg [31:0] tx_reg = 0;
+    reg [2:0] rx_byte_cnt = 0;
+    reg [31:0] count = 0;
+
+    // convenience buses for cmd and data bytes
+    wire [7:0] serial_cmd = rx_reg[39:32];
+    wire [31:0] serial_data_bytes = rx_reg[31:0];
+    reg [31:0] serial_reply = 0;
+
+    // bytes waiting to send
+    reg [2:0] tx_bytes = 0;
+
+    reg serial_cmd_rcvd;
+    // need a delay between starting serial and it toggling the busy pin
+    reg last_tx_ready = 0;
+    always @(posedge clk)
+        last_tx_ready <= tx_ready;
+
+    reg send_reply = 0;
+
+    // instantiate rx and tx
+    uart_rx #(.BAUD(BAUD)) RX0 (.clk(clk),
+           .rstn(!reset),
+           .rx(rx),
+           .rcv(rcv),
+           .data(rxdata)
+          );
+
+    uart_tx #(.BAUD(BAUD)) TX0 ( .clk(clk),
+             .rstn(!reset),
+             .start(tx_strb),
+             .data(txdata),
+             .tx(tx),
+             .ready(tx_ready)
+           );
+
+    // serial commands
+    localparam SCORE = 8'h7;
+
+    // on a serial command received, take action and make response
+    always @(posedge clk)
+        if(serial_cmd_rcvd) begin
+            send_reply <= 1; // always send a reply
+            case(serial_cmd)
+                SCORE:  begin 
+                    serial_reply <= high_score; 
+                end
+                default: serial_reply <= serial_cmd;
+            endcase
+        end else begin
+            // don't send reply
+            send_reply <= 0;
+        end
 
 
+    // serial interface
+    // first byte is a command (see above), second 4 make up an unsigned integer
+    always @(posedge clk) begin
+        if (rcv) begin
+            rx_reg <= {rx_reg[31:0], rxdata};
+            rx_byte_cnt <= rx_byte_cnt + 1;
+            if(rx_byte_cnt == 4) begin
+                serial_cmd_rcvd <= 1;
+                rx_byte_cnt <= 0;
+            end
+        end else
+            serial_cmd_rcvd <= 0;
+    end
+
+    // if a command is received, the tx data is queued in tx_reg
+    // so while there are bytes to send, send each one
+    always @(posedge clk) begin
+        if(send_reply) begin
+            tx_bytes <= 4;
+            tx_reg <= serial_reply;
+        end
+        if(tx_bytes > 0)
+            if(tx_ready) begin
+                tx_strb <= 1'b1;
+                txdata <= tx_reg[31:24]; 
+            // tx_uart takes 2 clock cycles for ready to go low after starting, so have to only do this on transition
+            end else if (~tx_ready && last_tx_ready) begin
+                tx_reg <= tx_reg << 8;
+                tx_bytes <= tx_bytes - 1;
+                tx_strb <= 1'b0;
+            end 
+    end
 
 endmodule
 

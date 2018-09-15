@@ -211,14 +211,13 @@ module top (
              .ready(tx_ready)
            );
 
-    // state machine states
+    // serial commands
     localparam ADDR = 8'h1;
     localparam LOAD = 8'h2;
     localparam WRITE = 8'h3;
     localparam READ = 8'h4;
     localparam READ_REQ = 8'h5;
     localparam COUNT = 8'h6;
-    localparam CONST = 8'h7;
 
 
 

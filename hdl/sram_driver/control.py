@@ -14,7 +14,7 @@ cmds = {
     'READ' : 4,
     'READ_REQ' : 5,
     'COUNT': 6,
-    'CONST': 7,
+    'SCORE': 7,
     }
 
 def cmd(cmd, tx_data=0):
@@ -30,7 +30,8 @@ def cmd(cmd, tx_data=0):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="communicate with FPGA over serial")
-    parser.add_argument('--port', default='/dev/ttyUSB0', help="serial port")
+    parser.add_argument('--score', const=True, action="store_const", help="read high score")
+    parser.add_argument('--port', default='/dev/ttyUSB1', help="serial port")
     parser.add_argument('--write', const=True, action="store_const", help="write test")
     parser.add_argument('--read', const=True, action="store_const", help="read test")
     parser.add_argument('--sequential', const=True, action="store_const", help="sequential write")
@@ -61,6 +62,11 @@ if __name__ == '__main__':
         if len(args.value) / 2 != args.addr_end - args.addr_start:
             exit("value is unexpected length %d - should be %d" % (len(args.value) / 2, args.addr_end - args.addr_start))
 
+    if args.score:
+        data = cmd('SCORE')
+        score = int(hex(data).replace('0x', ''))
+        print("high score: %d" % score)
+        exit()
 
     index = 0
     try:

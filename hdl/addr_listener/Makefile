@@ -3,7 +3,7 @@ PIN_DEF = 8k.pcf
 DEVICE = hx8k
 PACKAGE = ct256
 
-SRC = addr_listener.v
+SRC = addr_listener.v ../serial/uart_rx.v ../serial/uart_tx.v ../serial/baudgen.v ../serial/baudgen_rx.v
 
 all: $(PROJ).bin
 #all: $(PROJ).rpt $(PROJ).bin
