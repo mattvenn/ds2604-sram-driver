@@ -1,6 +1,15 @@
 # pinball high scores
 
+Reading the high scores out of the SRAM of a pinball machine.
+
 [inspiration](http://spritesmods.com/?art=twitter1943)
+
+[Tweet thread
+documentation](https://threadreaderapp.com/thread/1040240733838557184.html)
+
+After modelling, testing and reading/writing to the SRAM. I only needed to
+listen to the bus lines to know when the data was being read. That is done by
+[addr_reader](hdl/addr_reader)
 
 ## plan
 
@@ -117,23 +126,38 @@ And then read it back:
 
 But display shows 503950! Checked one byte before start address 1148:
 
-55 00 00:
-1148 05
-1149 55
-114a 00
-114b 00
-114c 00
+    55 00 00:
+    1148 05
+    1149 55
+    114a 00
+    114b 00
+    114c 00
 
-80 39 50:
-1148 08
-1149 80
-114a 03
-114b 39
-114c 05
+    80 39 50:
+    1148 08
+    1149 80
+    114a 03
+    114b 39
+    114c 05
 
 And can see it's the low nibble in each byte. Don't know what the upper nibble
 represents. Wrote 10k to the score and it works, can beat it easily - which
 should make the next step easier.
+
+wrote 10k with:
+
+    ./control.py --port /dev/ttyUSB1 --addr-start 1148 --addr-end  114d --write --hex --value 0001000000
+
+only lower half of the byte
+
+    1148 : 100ks
+    1149 : 10ks
+    114a : 1ks
+    114b : 100's
+    114c : 10's
+    114d : 1's
+
+so a write to 1149 is the 10k number.
 
 ## doctor who
 
